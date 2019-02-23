@@ -20,6 +20,10 @@ class Step1 extends Component {
         this.handleStateChange=this.handleStateChange.bind(this)
         this.handleZipChange=this.handleZipChange.bind(this)
     }
+    componentDidMount() {
+        let { name, address, city, state, zip } =this.props
+        this.setState({ name, address, city, state, zip})
+    }
 
     handleNameChange(val) { console.log(val)
         this.setState({

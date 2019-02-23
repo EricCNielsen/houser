@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
+import { updateMortgage, clear } from './../../ducks/reducer'
 
 class Step3 extends Component {
     constructor(props) {
@@ -15,6 +16,14 @@ class Step3 extends Component {
         this.createHouse=this.createHouse.bind(this)
     }
 
+    componentDidMount() {
+        let { mortgage, rent } = this.props
+        this.setState({
+            mortgage,
+            rent
+        })
+    }
+
     handleMortgage(val) {
         this.setState({
             mortgage:val
@@ -26,7 +35,18 @@ class Step3 extends Component {
         })
     }
     createHouse() {
-        axios.post('/api/house', this.state).then(res => {
+        let { name, address, city, state, zip, img } = this.props
+        let house = {
+            name,
+            address,
+            city,
+            state,
+            zip,
+            img,
+            ...this.state
+        }
+        axios.post('/api/house', house).then(res => {
+            this.props.clear()
             this.props.history.push('/')
         })
     }
@@ -51,4 +71,8 @@ class Step3 extends Component {
     }
 }
 
-export default Step3
+function mapStateToProps(state) {
+    return state
+}
+
+export default connect (mapStateToProps, {updateMortgage, clear})(Step3)

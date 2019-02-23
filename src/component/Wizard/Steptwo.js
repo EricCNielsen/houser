@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { updateImg } from './../../ducks/reducer'
 
 class Step2 extends Component {
     constructor(props) {
@@ -7,6 +8,12 @@ class Step2 extends Component {
         this.state = {
             img: ''
         }
+        this.handleChange=this.handleChange.bind(this)
+    }
+    componentDidMount() {
+        this.setState({
+            img: this.props.img
+        })
     }
 
     handleChange(val) {
@@ -29,4 +36,10 @@ class Step2 extends Component {
     }
 }
 
-export default Step2
+function mapStateToProps(state) {
+    return {
+        img: state.img
+    }
+}
+
+export default connect(mapStateToProps, {updateImg})(Step2)
