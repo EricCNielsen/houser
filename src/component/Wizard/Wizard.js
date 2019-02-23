@@ -1,91 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Route } from 'react-router-dom'
+import Step1 from './Stepone'
+import Step2 from './Steptwo'
+import Step3 from './Stepthree'
 
 
-class Wizard extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state= {
-            name: '',
-            address: '',
-            city: '',
-            state: '',
-            zip: 0
-        }
-        this.handleNameChange=this.handleNameChange.bind(this)
-        this.handleAddressChange=this.handleAddressChange.bind(this)
-        this.handleCityChange=this.handleCityChange.bind(this)
-        this.handleStateChange=this.handleStateChange.bind(this)
-        this.handleZipChange=this.handleZipChange.bind(this)
-        this.createHouse=this.createHouse.bind(this)
-    }
-
-    handleNameChange(val) { console.log(val)
-        this.setState({
-        name:val
-        })
-    }
-    handleAddressChange(val) { console.log(val)
-        this.setState({
-        address:val
-        })
-    }
-    handleCityChange(val) { console.log(val)
-        this.setState({
-        city:val
-        })
-    }
-    handleStateChange(val) { console.log(val)
-        this.setState({
-        state:val
-        })
-    }
-    handleZipChange(val) { console.log(val)
-        this.setState({
-            zip:val
-        })
-    }
-    createHouse() {
-        axios.post('/api/house', this.state).then(res => {
-            this.props.history.push('/')
-        })
-    }
-
-    // }
-    render() {
-        return (
+function Wizard(props) {
+    return (
+        <div>
+            <div class='cancel'>
+                <button onClick={() => props.history.push('/')}>Cancel</button>
+            </div>
             <div>
-                <div class='cancel'>
-                    <button onClick={() => this.props.history.push('/')}>Cancel</button>
-                </div>
-                <div class='form-container'>
-                    <div>
-                        <p>Property Name</p>
-                        <input value={this.state.name} type='text' onChange={(e) => this.handleNameChange(e.target.value)}/>
-                    </div>
-                    <div>
-                        <p>Address</p>
-                        <input value={this.state.address} type='text' onChange={(e) => this.handleAddressChange(e.target.value)}/>
-                    </div> 
-                    <div>
-                        <p>City</p>
-                        <input value={this.state.city} type='text' onChange={(e) => this.handleCityChange(e.target.value)}/>
-                    </div>
-                    <div>
-                        <p>State</p>
-                        <input value={this.state.state} type='text' onChange={(e) => this.handleStateChange(e.target.value)}/>
-                    </div>
-                    <div>
-                        <p>Zip</p>
-                        <input value={this.state.zip} type='number' onChange={(e) => this.handleZipChange(e.target.value)}/>
-                    </div>
-                    <button onClick={this.createHouse}>Create</button>
-                </div>
-             </div>
+                <Route path='/wizard/step1' component={Step1} />
+                <Route path='/wizard/step2' component={Step2} />
+                <Route path='/wizard/step3' component={Step3} />
+            </div>
+        </div>
         )
-    }
-
 }
+
 
 export default Wizard

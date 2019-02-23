@@ -1,4 +1,5 @@
 module.exports= {
+
     getAll: (req, res) => {
         const db = req.app.get('db')
 
@@ -6,6 +7,7 @@ module.exports= {
             res.status(200).send(resp)
         })
     },
+
     createHouse: (req, res) => {
         const db = req.app.get('db')
         const {name, address, city, state, zip} = req.body
@@ -14,11 +16,12 @@ module.exports= {
             res.status(200).send(resp)
         })
     },
+
     deleteHouse: (req, res) => {
         const db = req.app.get('db')
         const {id} = req.params
 
-        db.delete_house(id).then(resp => {
+        db.delete_house([id]).then(resp => {
             res.status(200).send(resp)
         })
     }

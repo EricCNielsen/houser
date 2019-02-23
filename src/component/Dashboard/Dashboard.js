@@ -11,6 +11,7 @@ class Dashboard extends Component {
         houses: []
         }
         this.getHouses=this.getHouses.bind(this)
+        this.deleteHouse=this.deleteHouse.bind(this)
     }
 
     componentDidMount() {
@@ -25,17 +26,16 @@ class Dashboard extends Component {
         })
     }
     deleteHouse(id){
-        axios.delete(`/api/house/${id}`).then(res => {
+        axios.delete(`/api/house/${id}`).then(res => 
             this.getHouses()
-        })
+        )
     }
 
     render() {
-        let getHouses = this.state.houses
         return (
             <div className='dash'>
                 <div>
-                    <button onClick={() => this.props.history.push('/wizard')}>Add New Property</button>
+                    <button onClick={() => this.props.history.push('/wizard/step1')}>Add New Property</button>
                 </div>
                 <div>
                     {this.state.houses.map(el => {
