@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import {updateAddress} from './../../ducks/reducer'
 
 
 class Step1 extends Component {
@@ -46,7 +47,7 @@ class Step1 extends Component {
         })
     }
 
-    render () { 
+    render () { console.log(this.props)
         return (
             <div class='form-container'>
                 <div>
@@ -69,11 +70,19 @@ class Step1 extends Component {
                     <p>Zip</p>
                     <input value={this.state.zip} type='number' onChange={(e) => this.handleZipChange(e.target.value)}/>
                 </div>
-                <button onClick={() => this.props.history.push('/wizard/step2')}>Next Step</button>
+                <button onClick={() => {
+                    this.props.history.push('/wizard/step2')
+                    this.props.updateAddress(this.state)
+                }}>Next Step</button>
                 
             </div>
         )
     }
 }
 
-export default Step1
+function mapStateToProps(reduxState) {
+    let { name, address, city, state, zip } = reduxState
+    return { name, address, city, state, zip }
+}
+
+export default connect(mapStateToProps, { updateAddress })(Step1)
